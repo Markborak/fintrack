@@ -1,17 +1,17 @@
-import React, { useState } from 'react';
-import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
-import { 
-  FiHome, 
-  FiDollarSign, 
-  FiPieChart, 
-  FiBarChart2, 
-  FiSettings, 
-  FiMenu, 
-  FiX, 
-  FiUser, 
-  FiLogOut 
-} from 'react-icons/fi';
+import React, { useState } from "react";
+import { Outlet, Link, useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+import {
+  FiHome,
+  FiDollarSign,
+  FiPieChart,
+  FiBarChart2,
+  FiSettings,
+  FiMenu,
+  FiX,
+  FiUser,
+  FiLogOut,
+} from "react-icons/fi";
 
 const MainLayout = () => {
   const { user, logout } = useAuth();
@@ -30,69 +30,85 @@ const MainLayout = () => {
 
   const handleLogout = () => {
     logout();
-    navigate('/login');
+    navigate("/login");
   };
 
   const getInitials = (name) => {
     return name
-      .split(' ')
-      .map(part => part[0])
-      .join('')
+      .split(" ")
+      .map((part) => part[0])
+      .join("")
       .toUpperCase();
   };
 
   const getPageTitle = () => {
     switch (location.pathname) {
-      case '/':
-        return 'Dashboard';
-      case '/transactions':
-        return 'Transactions';
-      case '/budget':
-        return 'Budget';
-      case '/analytics':
-        return 'Analytics';
-      case '/settings':
-        return 'Settings';
+      case "/":
+        return "Dashboard";
+      case "/transactions":
+        return "Transactions";
+      case "/budget":
+        return "Budget";
+      case "/analytics":
+        return "Analytics";
+      case "/settings":
+        return "Settings";
       default:
-        return 'Dashboard';
+        return "Dashboard";
     }
   };
 
   return (
     <div className="main-layout">
       {/* Sidebar */}
-      <aside className={`sidebar ${sidebarOpen ? 'active' : ''}`}>
+      <aside
+        className={`sidebar ${sidebarOpen ? "active" : ""}`}
+        onClick={() => setSidebarOpen(false)}
+      >
         <div className="sidebar-header">
-          <Link to="/" className="sidebar-logo">FinTrack</Link>
+          <Link to="/" className="sidebar-logo">
+            FinTrack
+          </Link>
         </div>
         <nav className="sidebar-nav">
-          <Link 
-            to="/" 
-            className={`sidebar-nav-item ${location.pathname === '/' ? 'active' : ''}`}
+          <Link
+            to="/"
+            className={`sidebar-nav-item ${
+              location.pathname === "/" ? "active" : ""
+            }`}
+            onClick={() => setSidebarOpen(false)}
           >
             <FiHome /> Dashboard
           </Link>
-          <Link 
-            to="/transactions" 
-            className={`sidebar-nav-item ${location.pathname === '/transactions' ? 'active' : ''}`}
+          <Link
+            to="/transactions"
+            className={`sidebar-nav-item ${
+              location.pathname === "/transactions" ? "active" : ""
+            }`}
           >
             <FiDollarSign /> Transactions
           </Link>
-          <Link 
-            to="/budget" 
-            className={`sidebar-nav-item ${location.pathname === '/budget' ? 'active' : ''}`}
+          <Link
+            to="/budget"
+            className={`sidebar-nav-item ${
+              location.pathname === "/budget" ? "active" : ""
+            }`}
           >
             <FiPieChart /> Budget
           </Link>
-          <Link 
-            to="/analytics" 
-            className={`sidebar-nav-item ${location.pathname === '/analytics' ? 'active' : ''}`}
+          <Link
+            to="/analytics"
+            className={`sidebar-nav-item ${
+              location.pathname === "/analytics" ? "active" : ""
+            }`}
           >
             <FiBarChart2 /> Analytics
           </Link>
-          <Link 
-            to="/settings" 
-            className={`sidebar-nav-item ${location.pathname === '/settings' ? 'active' : ''}`}
+          <Link
+            to="/settings"
+            className={`sidebar-nav-item ${
+              location.pathname === "/settings" ? "active" : ""
+            }`}
           >
             <FiSettings /> Settings
           </Link>
@@ -104,7 +120,10 @@ const MainLayout = () => {
         {/* Top Bar */}
         <div className="topbar">
           <div className="flex items-center">
-            <button className="btn-outline mr-4 md:hidden" onClick={toggleSidebar}>
+            <button
+              className="btn-outline mr-4 md:hidden"
+              onClick={toggleSidebar}
+            >
               {sidebarOpen ? <FiX /> : <FiMenu />}
             </button>
             <h1 className="page-title">{getPageTitle()}</h1>
@@ -116,7 +135,9 @@ const MainLayout = () => {
               </div>
               <span className="hidden md:block">{user && user.name}</span>
             </button>
-            <div className={`user-menu-dropdown ${userMenuOpen ? 'active' : ''}`}>
+            <div
+              className={`user-menu-dropdown ${userMenuOpen ? "active" : ""}`}
+            >
               <Link to="/settings" className="user-menu-item">
                 <FiUser className="mr-2" /> Profile
               </Link>
