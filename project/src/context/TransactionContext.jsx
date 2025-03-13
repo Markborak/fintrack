@@ -2,6 +2,9 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
 import { useAuth } from './AuthContext';
 
+const API_BASE = import.meta.env.VITE_API_BASE_URL || "https://fintrack-iibi.onrender.com";
+
+
 const TransactionContext = createContext();
 
 export const useTransactions = () => useContext(TransactionContext);
@@ -44,7 +47,7 @@ export const TransactionProvider = ({ children }) => {
     try {
       setLoading(true);
       setError(null);
-      const res = await axios.get('/api/transactions');
+      const res = await axios.get(`${API_BASE}/api/transactions`);
       setTransactions(res.data);
       setLoading(false);
     } catch (err) {
@@ -56,7 +59,7 @@ export const TransactionProvider = ({ children }) => {
   // Fetch categories
   const fetchCategories = async () => {
     try {
-      const res = await axios.get('/api/categories');
+      const res = await axios.get(`${API_BASE}/api/categories`);
       setCategories(res.data);
     } catch (err) {
       setError(err.response?.data?.message || 'Error fetching categories');
@@ -67,7 +70,7 @@ export const TransactionProvider = ({ children }) => {
   const addTransaction = async (transactionData) => {
     try {
       setError(null);
-      const res = await axios.post('/api/transactions', transactionData);
+      const res = await axios.post(`${API_BASE}/api/transactions`, transactionData);
       setTransactions([...transactions, res.data]);
       return res.data;
     } catch (err) {
@@ -80,7 +83,7 @@ export const TransactionProvider = ({ children }) => {
   const updateTransaction = async (id, transactionData) => {
     try {
       setError(null);
-      const res = await axios.put(`/api/transactions/${id}`, transactionData);
+      const res = await axios.put(`${API_BASE}/api/transactions/${id}`, transactionData);
       setTransactions(
         transactions.map(transaction => 
           transaction._id === id ? res.data : transaction
@@ -97,7 +100,7 @@ export const TransactionProvider = ({ children }) => {
   const deleteTransaction = async (id) => {
     try {
       setError(null);
-      await axios.delete(`/api/transactions/${id}`);
+      await axios.delete(`${API_BASE}/api/transactions/${id}`);
       setTransactions(
         transactions.filter(transaction => transaction._id !== id)
       );
@@ -112,7 +115,7 @@ export const TransactionProvider = ({ children }) => {
   const addCategory = async (categoryData) => {
     try {
       setError(null);
-      const res = await axios.post('/api/categories', categoryData);
+      const res = await axios.post(`${API_BASE}/api/categories`, categoryData);
       setCategories([...categories, res.data]);
       return res.data;
     } catch (err) {
