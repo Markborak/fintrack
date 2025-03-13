@@ -3,9 +3,9 @@ import axios from 'axios';
 
 const AuthContext = createContext();
 //
-const API_BASE = import.meta.env.VITE_API_BASE_URL;
+const API_BASE = import.meta.env.VITE_API_BASE_URL || "https://fintrack-iibi.onrender.com";
 
-const res = await axios.get(`${API_BASE}/api/auth/user`);
+
 
 //
 export const useAuth = () => useContext(AuthContext);
