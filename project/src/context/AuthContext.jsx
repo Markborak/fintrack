@@ -23,7 +23,7 @@ export const AuthProvider = ({ children }) => {
         
         if (token) {
           axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-          const res = await axios.get('/api/auth/user');
+          const res = await axios.get(`${API_BASE}/api/auth/user`);
           setUser(res.data);
         }
       } catch (err) {
@@ -75,7 +75,7 @@ export const AuthProvider = ({ children }) => {
   const login = async (userData) => {
     try {
       setError(null);
-      const res = await axios.post('/api/auth/login', userData);
+      const res = await axios.post(`${API_BASE}/api/auth/login`, userData);
       
       localStorage.setItem('token', res.data.token);
       axios.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`;
@@ -99,6 +99,18 @@ export const AuthProvider = ({ children }) => {
   const updateProfile = async (userData) => {
     try {
       setError(null);
+      const res = await axios.put(`${API_BASE}/api/auth/user`, userData);
+      setUser(res.data);
+      return res.data;
+    } catch (err) {
+      setError(err.response?.data?.message || 'Error updating profile');
+      throw err;
+    }
+  };
+  
+  /*const updateProfile = async (userData) => {
+    try {
+      setError(null);
       //testing
 
       const res = await axios.put('/api/auth/user', userData);
@@ -109,12 +121,12 @@ export const AuthProvider = ({ children }) => {
       throw err;
     }
   };
-
+*/
   // Change password
   const changePassword = async (passwordData) => {
     try {
       setError(null);
-      await axios.put('/api/auth/password', passwordData);
+      await axios.put(`${API_BASE}/api/auth/password`, passwordData);
       return true;
     } catch (err) {
       setError(err.response?.data?.message || 'Error changing password');
