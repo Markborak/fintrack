@@ -33,7 +33,24 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   // Register user
+  //testing
   const register = async (userData) => {
+    try {
+      setError(null);
+      const res = await axios.post(`${API_BASE}/api/auth/register`, userData);
+      
+      localStorage.setItem('token', res.data.token);
+      axios.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`;
+      
+      setUser(res.data.user);
+      return res.data;
+    } catch (err) {
+      setError(err.response?.data?.message || 'An error occurred during registration');
+      throw err;
+    }
+  };
+  
+  /*const register = async (userData) => {
     try {
       setError(null);
       const res = await axios.post('/api/auth/register', userData);
@@ -47,7 +64,7 @@ export const AuthProvider = ({ children }) => {
       setError(err.response?.data?.message || 'An error occurred during registration');
       throw err;
     }
-  };
+  };*/
 
   // Login user
   const login = async (userData) => {
@@ -77,6 +94,8 @@ export const AuthProvider = ({ children }) => {
   const updateProfile = async (userData) => {
     try {
       setError(null);
+      //testing
+
       const res = await axios.put('/api/auth/user', userData);
       setUser(res.data);
       return res.data;
