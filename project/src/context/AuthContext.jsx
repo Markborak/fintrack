@@ -2,7 +2,12 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
 
 const AuthContext = createContext();
+//
+const API_BASE = import.meta.env.VITE_API_BASE;
 
+const res = await axios.get(`${API_BASE}/api/auth/user`);
+
+//
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
