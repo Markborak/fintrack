@@ -155,4 +155,15 @@ const MainLayout = () => {
   );
 };
 
+//closing sidebar when clicking outside
+useEffect(() => {
+  const handleClickOutside = (event) => {
+    if (!event.target.closest(".user-menu")) {
+      setUserMenuOpen(false);
+    }
+  };
+  document.addEventListener("click", handleClickOutside);
+  return () => document.removeEventListener("click", handleClickOutside);
+}, []);
+
 export default MainLayout;
