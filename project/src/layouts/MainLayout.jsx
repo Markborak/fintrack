@@ -61,8 +61,8 @@ const MainLayout = () => {
   return (
     <div className="main-layout">
       {/* Sidebar */}
-      <aside
-        className={`sidebar ${sidebarOpen ? "active" : ""}`}
+      {/*<aside
+        className={`sidebar ${sidebarOpen ? "active" : "w-8"}`}
         onClick={() => setSidebarOpen(false)}
       >
         <div className="sidebar-header">
@@ -111,6 +111,70 @@ const MainLayout = () => {
             }`}
           >
             <FiSettings /> Settings
+          </Link>
+        </nav>
+      </aside>*/}
+      <aside
+        className={`sidebar transition-all duration-300 ${
+          sidebarOpen ? "w-64" : "w-8"
+        }`}
+      >
+        <div className="sidebar-header">
+          <Link to="/" className="sidebar-logo">
+            FinTrack
+          </Link>
+        </div>
+        <nav className="sidebar-nav">
+          <Link
+            to="/"
+            className={`sidebar-nav-item ${
+              location.pathname === "/" ? "active" : ""
+            }`}
+            onClick={() => setSidebarOpen(false)}
+          >
+            <span className={`${sidebarOpen ? "inline" : "hidden"}`}>
+              Dashboard
+            </span>
+          </Link>
+          <Link
+            to="/transactions"
+            className={`sidebar-nav-item ${
+              location.pathname === "/transactions" ? "active" : ""
+            }`}
+          >
+            <span className={`${sidebarOpen ? "inline" : "hidden"}`}>
+              Transactions
+            </span>
+          </Link>
+          <Link
+            to="/budget"
+            className={`sidebar-nav-item ${
+              location.pathname === "/budget" ? "active" : ""
+            }`}
+          >
+            <span className={`${sidebarOpen ? "inline" : "hidden"}`}>
+              Budget
+            </span>
+          </Link>
+          <Link
+            to="/analytics"
+            className={`sidebar-nav-item ${
+              location.pathname === "/analytics" ? "active" : ""
+            }`}
+          >
+            <span className={`${sidebarOpen ? "inline" : "hidden"}`}>
+              Analytics
+            </span>
+          </Link>
+          <Link
+            to="/settings"
+            className={`sidebar-nav-item ${
+              location.pathname === "/settings" ? "active" : ""
+            }`}
+          >
+            <span className={`${sidebarOpen ? "inline" : "hidden"}`}>
+              Settings
+            </span>
           </Link>
         </nav>
       </aside>
