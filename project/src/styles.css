@@ -778,3 +778,17 @@ Layout Styles .main-layout {
     gap: 1rem;
   }
 }
+/* */
+.sidebar {
+  width: 250px; /* Default width when open */
+  transition: width 0.3s ease-in-out;
+}
+
+.sidebar.w-8 {
+  width: 32px; /* Adjust this value to your preference */
+  overflow: hidden; /* Hide overflowing content */
+  white-space: nowrap; /* Prevent text from wrapping */
+}
+.sidebar.w-8 .sidebar-nav-item {
+  display: none;
+}
